@@ -9,9 +9,7 @@ import { Copy, Download, LinkIcon, Trash } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -65,8 +63,8 @@ const Link = () => {
       <div className="flex flex-col gap-8 sm:flex-row justify-between">
         <div className="flex flex-col items-start gap-8 rounded-lg sm:w-2/5">
           <span className='text-6xl font-entrabold hover:underline cursor-pointer'>{url?.title}</span>
-          <a href={`${import.meta.env.BASE_URL}/${link}`} target='_blank' className='text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer'>
-           {import.meta.env.BASE_URL}/{link}
+          <a href={`${import.meta.env.VITE_BASE_URL}/${link}`} target='_blank' className='text-3xl sm:text-4xl text-blue-400 font-bold hover:underline cursor-pointer'>
+           {import.meta.env.VITE_BASE_URL}/{link}
 
           </a>
           <a href={url?.original_url} target='_blank' className='flex items-center gap-1 hover:underline cursor-pointer'>
@@ -80,7 +78,7 @@ const Link = () => {
           <div className="flex gap-2">
               <Button variant="ghost"
                   onClick = {()=>
-                      navigator.clipboard.writeText(`https://easyurl.in/${url?.short_url}`)
+                      navigator.clipboard.writeText(`${import.meta.env.VITE_BASE_URL}/${url?.short_url}`)
                   }
               >
               <Copy/>

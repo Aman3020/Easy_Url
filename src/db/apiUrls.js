@@ -65,8 +65,7 @@ export async function getUrl({id, user_id}) {
       .eq("id", id)
       .eq("user_id" , user_id)
       .single()
-
-
+      
   if (error){
     console.error(error.message)
     throw new Error("Short Url not Found");
