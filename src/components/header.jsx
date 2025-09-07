@@ -17,7 +17,7 @@ const Header = () => {
   return ( <>
     <nav className="py-4 flex justify-between items-center">
         <Link to="/">
-        <img src='/logo.png' className='h-12 rounded-full object-cover' alt='Trimrr logo'/>
+        <img src='/logo.png' className='h-12 rounded-full object-cover' alt='Eazy logo'/>
         </Link>
 
         <div>
