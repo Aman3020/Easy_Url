@@ -8,6 +8,7 @@ import RedirectLink from './pages/redirect-link';
 import LandingPage from './pages/landing';
 import UrlProvider from './context';
 import RequireAuth from './components/require-auth';
+import { ToastContainer, toast, Bounce } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,18 @@ function App() {
   return (
         <UrlProvider>
           <RouterProvider router={router}/>
+          <ToastContainer
+            position="top-right"
+            autoClose={1500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick={false}
+            rtl={false}
+            draggable
+            pauseOnHover
+            theme="dark"
+            transition={Bounce}
+          />
         </UrlProvider>
   )
 }

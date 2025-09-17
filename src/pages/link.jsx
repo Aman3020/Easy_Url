@@ -15,8 +15,10 @@ import {
 } from "@/components/ui/card"
 import Location from '../components/location-stats';
 import Device from '../components/device-stats';
+import {toast } from 'react-toastify';
 
 const Link = () => {
+  const notify = () => toast("Link Copied");
 
   const downloadImage = () =>{
       const imageUrl = url?.qr;
@@ -76,8 +78,10 @@ const Link = () => {
 
           <div className="flex gap-2">
               <Button variant="ghost"
-                  onClick = {()=>
+                  onClick = {()=>{
                       navigator.clipboard.writeText(`${import.meta.env.VITE_BASE_URL}/${url?.short_url}`)
+                      notify()
+                    }
                   }
               >
               <Copy/>
