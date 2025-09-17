@@ -30,7 +30,7 @@ const Dashboard = () => {
   } = useFetch(getClicksForUrls, 
     urls?.map((url) =>url.id)
   )
-  // console.log(clicks, loading)
+  // console.log(urls?.map((url) =>url.id));
 
   useEffect(()=>{
     fnUrls()
@@ -40,7 +40,7 @@ const Dashboard = () => {
     if(urls?.length) fnClicks()
   },[urls?.length]);
 
-  console.log(urls);
+  // console.log(clicks);
 const filteredUrls = urls?.filter((url)=>
     url.title.toLowerCase().includes(searchQuery.toLowerCase())
   )
