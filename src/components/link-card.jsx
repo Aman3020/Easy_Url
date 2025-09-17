@@ -8,19 +8,43 @@ import { BeatLoader } from 'react-spinners'
 
 const LinkCard = ({url, fetchUrls}) => {
  
-    const downloadImage = () =>{
-        const imageUrl = url?.qr;
-        const fileName = url?.title;
+    // const downloadImage = () =>{
+    //     const imageUrl = url?.qr;
+    //     const fileName = url?.title;
 
-        const anchor = document.createElement("a");
-        anchor.href = imageUrl;
-        anchor.download = fileName;
+    //     const anchor = document.createElement("a");
+    //     anchor.href = imageUrl;
+    //     anchor.download = fileName;
 
-        document.body.appendChild(anchor);
-        anchor.click();
+    //     document.body.appendChild(anchor);
+    //     anchor.click();
 
-        document.body.removeChild(anchor);
-    }
+    //     document.body.removeChild(anchor);
+    // }
+
+    const downloadImage = async () => {
+        try {
+            const response = await fetch(url?.qr, { mode: "cors" });
+            const blob = await response.blob();
+
+            const blobUrl = URL.createObjectURL(blob);
+            console.log(blobUrl);
+            const anchor = document.createElement("a");
+            anchor.href = blobUrl;
+            anchor.download = `${url?.title}.png`;  // Add .png extension
+
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+
+            // Release memory after download
+            URL.revokeObjectURL(blobUrl);
+
+        } catch (error) {
+            console.error("Failed to download image", error);
+        }
+    };
+
 
     const {loading: loadingDelete, fn: fnDelete} = useFetch(deleteUrl, url?.id)
 
