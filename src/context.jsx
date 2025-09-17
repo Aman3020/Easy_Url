@@ -21,4 +21,4 @@ const UrlProvider = ({children}) =>{
 export const UrlState = () =>{
     return useContext(UrlContext);
 }
-export default UrlProvider;
+export default UrlProvider; 

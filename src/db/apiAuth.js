@@ -33,9 +33,9 @@ export async function signup({name, email, password, profile_pic}){
                 }
             }
         })
-    console.log("hello")
+    // console.log("hello")
     if(error) throw new Error(error.message);
-    console.log("hello ji")
+    // console.log("hello ji")
 
     return data;
 }
