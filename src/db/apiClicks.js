@@ -11,51 +11,30 @@ export async function getClicksForUrls(urlIds) {
 }
 
 
-// const parser = new UAParser();
+const parser = new UAParser();
 
-// export const storeClicks = async ({id, originalUrl}) =>{
+export const storeClicks = async ({id, originalUrl}) =>{
 
-//   try{
-//     const res = parser.getResult();
-//     const device = res.type || "desktop";
+  try{
+    const res = parser.getResult();
+    const device = res.type || "desktop";
 
-//     const response = await fetch("https://ipapi.co/json");
-//     const {city, country_name: country} = await response.json();
+    const response = await fetch("https://ipapi.co/json");
+    const {city, country_name: country} = await response.json();
 
-//     await supabase.from("clicks").insert({
-//       url_id:id,
-//       city:city,
-//       country: country,
-//       device: device,
-//     })
+    await supabase.from("clicks").insert({
+      url_id:id,
+      city:city,
+      country: country,
+      device: device,
+    })
 
-//     window.location.href = originalUrl;
+    window.location.href = originalUrl;
 
-//   }catch(error){
-//     console.error("Error recording click: ", error);
-//   }
-// }
-
-// import UAParser from "ua-parser-js";
-
-export const storeClicks = async ({ id }) => {
-  try {
-    const parser = new UAParser();
-    const result = parser.getResult();
-    const device = result.device.type || "desktop";
-
-    await fetch("https://qztuwkaqxmgkzmfwgjix.supabase.co/functions/v1/store-clicks", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id, device }),
-      keepalive: true,
-    });
-  } catch (err) {
-    console.error("Error logging click:", err);
+  }catch(error){
+    console.error("Error recording click: ", error);
   }
-};
-
-
+}
 
 export async function getClicksForUrl(url_id) {
   const { data, error } = await supabase
