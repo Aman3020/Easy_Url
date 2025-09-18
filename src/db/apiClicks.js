@@ -11,30 +11,36 @@ export async function getClicksForUrls(urlIds) {
 }
 
 
-const parser = new UAParser();
+// import { UAParser } from "ua-parser-js";
+// import supabase from "./supabase";
 
-export const storeClicks = async ({id, originalUrl}) =>{
+export const storeClicks = ({ id }) => {
+  try {
+    const parser = new UAParser();
+    const device = parser.getResult().device.type || "desktop";
 
-  try{
-    const res = parser.getResult();
-    const device = res.type || "desktop";
+    // Fetch geolocation from frontend asynchronously
+    fetch("https://ipapi.co/json", { keepalive: true })
+      .then(res => res.json())
+      .then(async (data) => {
+        const city = data.city || "unknown";
+        const country = data.country_name || "unknown";
 
-    const response = await fetch("https://ipapi.co/json");
-    const {city, country_name: country} = await response.json();
+        // Insert click into Supabase asynchronously
+        await supabase.from("clicks").insert({
+          url_id: id,
+          city,
+          country,
+          device,
+        });
+      })
+      .catch(err => console.error("Error fetching geolocation:", err));
 
-    await supabase.from("clicks").insert({
-      url_id:id,
-      city:city,
-      country: country,
-      device: device,
-    })
-
-    window.location.href = originalUrl;
-
-  }catch(error){
-    console.error("Error recording click: ", error);
+  } catch (error) {
+    console.error("Error recording click:", error);
   }
-}
+};
+
 
 export async function getClicksForUrl(url_id) {
   const { data, error } = await supabase
